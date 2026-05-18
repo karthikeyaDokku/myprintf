@@ -1,13 +1,22 @@
 CC = gcc
+CFLAGS = -Wall -Wextra -Werror -pedantic
 
-CFLAGS = -Wall -Wextra
+SRC = main.c _printf.c _putchar.c handlers.c
+OBJ = $(SRC:.c=.o)
+NAME = my_printf
 
-TARGET = my_printf
+all: $(NAME)
 
-SRC = main.c
+$(NAME): $(OBJ)
+	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
 
-all:
-	$(CC) $(CFLAGS) $(SRC) -o $(TARGET)
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f $(TARGET)
+	rm -f $(OBJ)
+
+fclean: clean
+	rm -f $(NAME)
+
+re: fclean all
